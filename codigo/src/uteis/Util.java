@@ -1,5 +1,8 @@
+package uteis;
 
 import java.util.List;
+
+import arestas.Aresta;
 
 public class Util {
     

@@ -1,5 +1,9 @@
+package vertices;
 import java.util.ArrayList;
 import java.util.List;
+
+import arestas.Aresta;
+import uteis.Util;
 
 public class Vertice {
 
@@ -16,7 +20,7 @@ public class Vertice {
 
     }
 
-    Vertice(){
+    public Vertice(){
 
         init(false);
 
