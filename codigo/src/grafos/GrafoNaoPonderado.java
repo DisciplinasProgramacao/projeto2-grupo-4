@@ -41,10 +41,7 @@ public class GrafoNaoPonderado extends GrafoMutavel {
 
     }
 
-    @Override
-    public void carregarGrafo(String path) {
-        super.carregarGrafo(path);
-    }
+    
 
     
 }

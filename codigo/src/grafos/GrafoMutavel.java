@@ -28,7 +28,7 @@ public abstract class GrafoMutavel extends Grafo {
      * A função principal do método é que atraves de uma matriz de adjacência é obtido os dados referente
      *  ao grafo assim, carregando suas informações para a classe.
      */
-    public void carregarGrafo(String path){
+    public boolean carregarGrafo(String path){
 
         File arquivo = new File(path);
 
@@ -69,17 +69,18 @@ public abstract class GrafoMutavel extends Grafo {
 
                 }
 
-
                 bufferedReader.close();
 
             } catch (Exception e) {
-                
+                return false;
             }
 
             fileReader.close();
-
+            
+            return true;
+            
         }catch(Exception e){
-
+            return false;
         }
 
     } 
