@@ -3,6 +3,8 @@ package grafos;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import uteis.Util;
 import vertices.Vertice;
@@ -102,5 +104,63 @@ public abstract class GrafoMutavel extends Grafo {
         return true;
 
     } 
+
+    public boolean deletaAresta(int origem, int destino){
+
+
+        return false;
+
+    }
+
+    public boolean deletaVertice(int id_vertice){
+        
+        if(this.existeVertice(id_vertice)){
+
+            this.vertices.remove(id_vertice);
+            reogarnizaListaVertices();
+            return true;
+        }
+        
+        return false;
+
+    }
+
+    public void salvarArquivo(String nome_arquivo){
+
+    }
+
+    /* Overrides */
+
+    @Override
+    public boolean existeAresta(int destino, int origem) {
+        return super.existeAresta(destino, origem);
+    }
+
+    @Override
+    public boolean existeVertice(int id_vertice) {
+        return super.existeVertice(id_vertice);
+    }
+
+    /* Re-Organização */
+
+    private void reogarnizaListaVertices(){
+
+        List<Vertice> novo_vertices = new ArrayList<>();
+
+        for(Vertice vertice : this.vertices){
+
+            int novo_id = vertice.getID() - 1;
+
+            Vertice novo_vertice = vertice;
+            novo_vertice.setID(novo_id);
+            Util.ID--;
+
+            novo_vertices.add(novo_vertice);
+
+        }
+
+        this.setVertices(novo_vertices);
+
+    }
 
 }

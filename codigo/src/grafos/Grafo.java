@@ -21,6 +21,11 @@ public abstract class Grafo {
     public Grafo(){
         init(new ArrayList<>());
     }
+    /* Gettres e Setters */
+
+    public void setVertices(List<Vertice> vertices){
+        this.vertices = vertices;
+    }
 
     /* Métodos */
 
@@ -67,4 +72,20 @@ public abstract class Grafo {
 
 
     }
+
+    public boolean existeVertice(int id_vertice){
+
+        for(Vertice vertice : this.vertices){
+
+            if(vertice.getID() == id_vertice){
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
 }
+

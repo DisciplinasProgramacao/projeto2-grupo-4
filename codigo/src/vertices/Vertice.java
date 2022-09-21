@@ -7,7 +7,7 @@ import uteis.Util;
 
 public class Vertice {
 
-    private final int id = Util.retornaID();
+    private int id = Util.retornaID();
     private List<Aresta> arestas;
     private boolean visitado;
 
@@ -120,6 +120,10 @@ public class Vertice {
 
     public int getID(){
         return this.id;
+    }
+
+    public void setID(int id){
+        this.id = id;
     }
 
     /* Util */
