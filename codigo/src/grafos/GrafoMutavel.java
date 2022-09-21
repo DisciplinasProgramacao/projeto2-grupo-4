@@ -107,6 +107,12 @@ public abstract class GrafoMutavel extends Grafo {
 
     public boolean deletaAresta(int origem, int destino){
 
+        if(this.existeAresta(destino, origem)){
+
+            this.vertices.get(origem).removeAresta(destino);
+            return true;
+
+        }
 
         return false;
 

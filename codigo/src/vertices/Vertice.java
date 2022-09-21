@@ -136,6 +136,12 @@ public class Vertice {
         this.arestas.add(aresta);
     }
 
+    public void removeAresta(int destino){
+
+        this.arestas.remove(destino);
+
+    }
+
     public void imprimiVertice(){
 
         if(!Util.IsListaArestasVazia(this.arestas)){
