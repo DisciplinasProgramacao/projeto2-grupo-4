@@ -28,6 +28,12 @@ public class Grafo {
 
     /* Métodos */
 
+
+    /**
+     * @param path -> o método recebe o caminho do arquivo, localizado em resources.
+     * A função principal do método é que atraves de uma matriz de adjacência é obtido os dados referente
+     *  ao grafo assim, carregando suas informações para a classe.
+     */
     public void carregarGrafo(String path){
 
         File arquivo = new File(path);
@@ -84,6 +90,11 @@ public class Grafo {
 
     } 
 
+
+    /**
+     * @param novo -> recebe o vértice a ser adicionado
+     * @return -> retorna falso caso o vértice já exista no grafo e true para caso não exista
+     */
     public boolean addVertice(Vertice novo){
 
         for(Vertice vertice_analisar : this.vertices){
@@ -100,6 +111,13 @@ public class Grafo {
 
     } 
 
+
+    /**
+     * @param origem -> recebe em qual grafo será a origem da aresta
+     * @param destino -> recebe em qual grafo será o destino da aresta
+     * @return -> retorna true para caso não exista uma aresta com origem e destino igual dos paramêtros
+     * e true, para caso a aresta seja adicionada com sucesso
+     */
     public boolean addAresta(int origem, int destino){
 
         if(this.vertices.size() == 0){
@@ -113,6 +131,7 @@ public class Grafo {
 
                 if(this.vertices.get(i).getID() == origem){
                     this.vertices.get(i).addAresta(destino);
+                    return true;
                 }
 
             }
@@ -125,6 +144,9 @@ public class Grafo {
 
     }
 
+    /**
+     * Esta função só pussi o proósito de imprimir o grafo como uma função auxliar de teste
+     */
     public void imprimiGrafo(){
 
         for (Vertice vertice : this.vertices) {
@@ -139,6 +161,12 @@ public class Grafo {
 
     }
 
+
+    /**
+     * @param destino -> recebe em qual grafo será a origem da aresta analisada
+     * @param origem -> recebe em qual grafo será o destino da aresta analisada
+     * @return -> retorna true para caso a aresta e exista e false caso não exista
+     */
     public boolean existeAresta(int destino, int origem){
         
         for(int i = 0; i < this.vertices.size(); i++){
