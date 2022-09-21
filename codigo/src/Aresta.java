@@ -1,4 +1,3 @@
-package codigos;
 
 class Aresta{
 
