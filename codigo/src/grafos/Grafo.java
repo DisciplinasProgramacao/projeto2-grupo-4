@@ -21,6 +21,7 @@ public abstract class Grafo {
     public Grafo(){
         init(new ArrayList<>());
     }
+   
     /* Gettres e Setters */
 
     public void setVertices(List<Vertice> vertices){
@@ -73,6 +74,10 @@ public abstract class Grafo {
 
     }
 
+    /**
+     * @param id_vertice -> recebe o id do vértice a ser analisado
+     * @return -> retorna true caso o vértice exista e false caso não exista
+     */
     public boolean existeVertice(int id_vertice){
 
         for(Vertice vertice : this.vertices){

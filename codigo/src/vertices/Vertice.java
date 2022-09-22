@@ -136,6 +136,11 @@ public class Vertice {
         this.arestas.add(aresta);
     }
 
+
+    /**
+     * @param destino -> recebe o destino da aresta a ser removida
+     * @param reogarnizar -> recebe a informação de se a lista de arestas precise ser refatorada.
+     */
     public void removeAresta(int destino, boolean reogarnizar){
 
         this.arestas.remove(destino);

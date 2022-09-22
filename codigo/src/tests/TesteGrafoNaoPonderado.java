@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import grafos.GrafoNaoPonderado;
+import uteis.Util;
 
 public class TesteGrafoNaoPonderado{
 
@@ -12,6 +13,8 @@ public class TesteGrafoNaoPonderado{
 
     @Test
     public void testCarregamento(){
+
+        Util.ImprimiMensagem("Teste 1: ");
 
         GrafoNaoPonderado grafo = retornaGrafo();
 
@@ -26,9 +29,13 @@ public class TesteGrafoNaoPonderado{
     @Test
     public void testDeletaVertice(){
 
+        Util.ImprimiMensagem("Teste 2: ");
+
         GrafoNaoPonderado grafo = retornaGrafo();
 
         grafo.carregarGrafo(path);
+
+        Util.ImprimiMensagem("Grafo antes de deletar vértice: ");
 
         grafo.imprimiGrafo();
 
@@ -36,6 +43,8 @@ public class TesteGrafoNaoPonderado{
         //boolean deletado = false;
 
         grafo.deletaVertice(0);
+
+        Util.ImprimiMensagem("Grafo depois de deletar vértice: ");
 
         grafo.imprimiGrafo();
 
@@ -49,7 +58,7 @@ public class TesteGrafoNaoPonderado{
 
     }
 
-    public GrafoNaoPonderado retornaGrafo(){
+    private GrafoNaoPonderado retornaGrafo(){
         return new GrafoNaoPonderado();
     }
 

@@ -106,6 +106,12 @@ public abstract class GrafoMutavel extends Grafo {
 
     } 
 
+
+    /**
+     * @param origem -> recebe a origem da aresta a ser deletada
+     * @param destino -> recebe o destino da aresta a ser deletada
+     * @return -> retorna true para caso a aresta seja deletada e false para caso ocorra algum erro.
+     */
     public boolean deletaAresta(int origem, int destino){
 
         if(this.existeAresta(destino, origem)){
@@ -119,6 +125,11 @@ public abstract class GrafoMutavel extends Grafo {
 
     }
 
+
+    /**
+     * @param id_vertice -> recebe o id do vértice a ser deletado 
+     * @return -> retorna true para caso o vértice seja deletado e false para caso ocorra algum erro.
+     */
     public boolean deletaVertice(int id_vertice){
         
         if(this.existeVertice(id_vertice)){
@@ -150,6 +161,12 @@ public abstract class GrafoMutavel extends Grafo {
 
     /* Re-Organização */
 
+ 
+    /**
+     * Este método reogarniza a lista dos vértices caso um deles seja deletado, fazendo com que seja refatorado o id e posição vértices
+     * na lista. 
+     * @param id_vertice -> recebe o id do vértice a ser reogarnizado
+     */
     private void reogarnizaListaVertices(int id_vertice){
 
         List<Vertice> novo_vertices = new ArrayList<>();
