@@ -1,12 +1,20 @@
-package codigos;
+package uteis;
 
 import java.util.List;
+import java.util.Scanner;
+
+import arestas.Aresta;
 
 public class Util {
     
     private static int ID_GRAFO = -1;
-    private static int ID = -1;
+    public static int ID = -1;
     private static String nome_grafo = "GRAFO ";
+    private static final Scanner teclado = new Scanner(System.in);
+
+    public static int retornaInteiro(){
+        return teclado.nextInt();
+    }
 
     public static void ImprimiMensagemSemQuebraLinha(String mensagem){
 

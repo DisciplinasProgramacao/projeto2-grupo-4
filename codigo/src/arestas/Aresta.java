@@ -1,6 +1,7 @@
-package codigos;
+package arestas;
+import uteis.Util;
 
-class Aresta{
+public class Aresta{
 
     private int destino;
     private boolean visitada;
@@ -14,11 +15,11 @@ class Aresta{
     
     }
 
-    Aresta(){
+    public Aresta(){
         init(-1, false, 0);
     }
 
-    Aresta(int destino){
+    public Aresta(int destino){
         init(destino, false, peso);
     }
 
@@ -28,6 +29,10 @@ class Aresta{
 
     public int getPeso(){
         return this.peso;
+    }
+
+    public void setDestino(int destino){
+        this.destino = destino;
     }
 
     public boolean getVisitada(){
