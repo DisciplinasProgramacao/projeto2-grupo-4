@@ -31,6 +31,10 @@ public class Aresta{
         return this.peso;
     }
 
+    public void setDestino(int destino){
+        this.destino = destino;
+    }
+
     public boolean getVisitada(){
         return this.visitada;
     }

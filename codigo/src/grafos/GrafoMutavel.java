@@ -110,7 +110,7 @@ public abstract class GrafoMutavel extends Grafo {
 
         if(this.existeAresta(destino, origem)){
 
-            this.vertices.get(origem).removeAresta(destino);
+            this.vertices.get(origem).removeAresta(destino, false);
             return true;
 
         }
@@ -124,7 +124,7 @@ public abstract class GrafoMutavel extends Grafo {
         if(this.existeVertice(id_vertice)){
 
             this.vertices.remove(id_vertice);
-            reogarnizaListaVertices();
+            reogarnizaListaVertices(id_vertice);
             return true;
         }
         
@@ -150,7 +150,7 @@ public abstract class GrafoMutavel extends Grafo {
 
     /* Re-Organização */
 
-    private void reogarnizaListaVertices(){
+    private void reogarnizaListaVertices(int id_vertice){
 
         List<Vertice> novo_vertices = new ArrayList<>();
 
@@ -163,6 +163,8 @@ public abstract class GrafoMutavel extends Grafo {
             Util.ID--;
 
             novo_vertices.add(novo_vertice);
+
+            vertice.removeAresta(id_vertice, true);
 
         }
 
