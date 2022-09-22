@@ -28,12 +28,21 @@ public abstract class Grafo {
         this.vertices = vertices;
     }
 
+    /* Métodos abstratos */
+
+
+    /**
+     * @param vertices -> através de uma lista de vértices é criado o sub-grafo
+     * @return -> retorna o sub-grafo criado caso seja possível
+     */
+    public abstract Grafo geraSubGrafo(List<Vertice> vertices);
+
     /* Métodos */
 
     /**
      * Esta função só pussi o proósito de imprimir o grafo como uma função auxliar de teste
      */
-    public void imprimiGrafo(){
+    public void imprimiGrafoNaoPonderado(){
 
         for (Vertice vertice : this.vertices) {
             

@@ -20,7 +20,7 @@ public class TesteGrafoNaoPonderado{
 
         boolean carregamento = grafo.carregarGrafo(path);
         
-        grafo.imprimiGrafo();
+        grafo.imprimiGrafoNaoPonderado();
 
         assertEquals(true, carregamento);
 
@@ -37,7 +37,7 @@ public class TesteGrafoNaoPonderado{
 
         Util.ImprimiMensagem("Grafo antes de deletar vértice: ");
 
-        grafo.imprimiGrafo();
+        grafo.imprimiGrafoNaoPonderado();
 
         //int antiga_ordem = grafo.getOrdem();
         //boolean deletado = false;
@@ -46,7 +46,7 @@ public class TesteGrafoNaoPonderado{
 
         Util.ImprimiMensagem("Grafo depois de deletar vértice: ");
 
-        grafo.imprimiGrafo();
+        grafo.imprimiGrafoNaoPonderado();
 
         /*if(grafo.getOrdem() != antiga_ordem){
 
