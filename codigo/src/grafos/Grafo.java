@@ -21,18 +21,28 @@ public abstract class Grafo {
     public Grafo(){
         init(new ArrayList<>());
     }
+   
     /* Gettres e Setters */
 
     public void setVertices(List<Vertice> vertices){
         this.vertices = vertices;
     }
 
+    /* Métodos abstratos */
+
+
+    /**
+     * @param vertices -> através de uma lista de vértices é criado o sub-grafo
+     * @return -> retorna o sub-grafo criado caso seja possível
+     */
+    public abstract Grafo geraSubGrafo(List<Vertice> vertices);
+
     /* Métodos */
 
     /**
      * Esta função só pussi o proósito de imprimir o grafo como uma função auxliar de teste
      */
-    public void imprimiGrafo(){
+    public void imprimiGrafoNaoPonderado(){
 
         for (Vertice vertice : this.vertices) {
             
@@ -73,6 +83,10 @@ public abstract class Grafo {
 
     }
 
+    /**
+     * @param id_vertice -> recebe o id do vértice a ser analisado
+     * @return -> retorna true caso o vértice exista e false caso não exista
+     */
     public boolean existeVertice(int id_vertice){
 
         for(Vertice vertice : this.vertices){

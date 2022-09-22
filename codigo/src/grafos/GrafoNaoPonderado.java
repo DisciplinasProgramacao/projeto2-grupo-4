@@ -1,6 +1,9 @@
 package grafos;
 
+import java.util.List;
+
 import uteis.Util;
+import vertices.Vertice;
 
 public class GrafoNaoPonderado extends GrafoMutavel {
     
@@ -42,9 +45,25 @@ public class GrafoNaoPonderado extends GrafoMutavel {
     }
 
     @Override
-    public void carregarGrafo(String path) {
-        super.carregarGrafo(path);
-    }
+    public Grafo geraSubGrafo(List<Vertice> vertices_sub_grafo) {
 
+        GrafoNaoPonderado sub_grafo = new GrafoNaoPonderado();
+        
+        if(vertices_sub_grafo.size() == 0){
+
+            Util.ImprimiErro("Não possui vértices");
+            return null;
+        
+        }else{
+
+            for(Vertice vertice : vertices_sub_grafo){
+
+                sub_grafo.addVertice(vertice);
+
+            }
+
+            return sub_grafo;
+        }
+    }
     
 }

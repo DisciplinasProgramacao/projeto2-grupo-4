@@ -136,9 +136,19 @@ public class Vertice {
         this.arestas.add(aresta);
     }
 
-    public void removeAresta(int destino){
+
+    /**
+     * @param destino -> recebe o destino da aresta a ser removida
+     * @param reogarnizar -> recebe a informação de se a lista de arestas precise ser refatorada.
+     */
+    public void removeAresta(int destino, boolean reogarnizar){
 
         this.arestas.remove(destino);
+
+        if(reogarnizar && this.arestas.size() > 0){
+            this.reogarnizaListaArestas();
+        }
+
 
     }
 
@@ -165,6 +175,25 @@ public class Vertice {
         }
 
         
+
+    }
+
+    /* Re-Ogarnização */
+    
+    public void reogarnizaListaArestas(){
+
+        List<Aresta> novas_arestas = new ArrayList<>();
+
+        for(Aresta aresta: this.arestas){
+
+            int novo_destino = aresta.getDestino() - 1; 
+
+            aresta.setDestino(novo_destino);
+            novas_arestas.add(aresta);
+
+        }
+
+        this.arestas = novas_arestas;
 
     }
 
