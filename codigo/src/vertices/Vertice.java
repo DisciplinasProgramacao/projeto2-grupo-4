@@ -126,6 +126,10 @@ public class Vertice {
         this.id = id;
     }
 
+    public List<Aresta> getArestas(){
+        return this.arestas;
+    }
+
     /* Util */
 
     

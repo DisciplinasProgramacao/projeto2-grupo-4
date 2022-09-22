@@ -1,8 +1,11 @@
 package grafos;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import buscas.BuscaEmProfunidade;
 import uteis.Util;
 import vertices.Vertice;
 
@@ -101,5 +104,18 @@ public abstract class Grafo {
 
     }
 
+    public void BuscaProfunidade(){
+
+
+
+    }
+
+    private void BuscaProfunidade(int vertice_inicio){
+
+        BuscaEmProfunidade busca = new BuscaEmProfunidade();
+
+        busca.registroGeral(vertice_inicio, 0, -1, -1);
+
+    }
 }
 
