@@ -105,7 +105,7 @@ public abstract class Grafo {
      * @return -> retorna o número de vértices
      */
     public int ordem(){
-        return this.vertices.size();
+        return this.vertices.size(); 
     }
 
     /**
