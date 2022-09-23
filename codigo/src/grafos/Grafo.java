@@ -101,5 +101,27 @@ public abstract class Grafo {
 
     }
 
+    /**
+     * @return -> retorna o número de vértices
+     */
+    public int ordem(){
+        return this.vertices.size();
+    }
+
+    /**
+     * 
+     * @return -> retorna a soma do total de vétices com o total de arestass
+     */
+    public int tamanho(){
+        int nrVertice = this.ordem();
+        int nrAresta = 0;
+
+        for(int i =0; i < nrVertice; i++){
+            nrAresta += this.vertices.get(i).getGrau();
+        }
+        return nrVertice + nrAresta;
+    }
+
+    
 }
 

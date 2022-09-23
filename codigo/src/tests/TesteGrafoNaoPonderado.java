@@ -58,6 +58,26 @@ public class TesteGrafoNaoPonderado{
 
     }
 
+    @Test
+    public void testaOrdemDoGrafo(){
+
+        GrafoNaoPonderado grafo = retornaGrafo();
+
+        grafo.carregarGrafo(path);
+
+        assertEquals(5,grafo.ordem());
+    }
+
+    @Test
+    public void testaTamanhoDoGrafo(){
+
+        GrafoNaoPonderado grafo = retornaGrafo();
+
+        grafo.carregarGrafo(path);
+
+        assertEquals(15,grafo.ordem());
+    }
+
     private GrafoNaoPonderado retornaGrafo(){
         return new GrafoNaoPonderado();
     }
