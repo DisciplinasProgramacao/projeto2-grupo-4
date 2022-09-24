@@ -122,6 +122,22 @@ public abstract class Grafo {
         return nrVertice + nrAresta;
     }
 
-    
+
+    /**
+     *
+     * @return -> retorna verdadeiro se todos os vértices do grafo forem adjacentes (grafo completo)
+     * e falso caso não sejam
+     */
+    public boolean completo() {
+        for (int i = 0; i < this.vertices.size(); i++) {
+            for (int j = 0; j < this.vertices.size(); j++) {
+                if (!existeAresta(this.vertices.get(i).getID(), this.vertices.get(j).getID())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
 
