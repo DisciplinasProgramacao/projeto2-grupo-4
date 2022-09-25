@@ -131,7 +131,7 @@ public abstract class Grafo {
     public boolean completo() {
         for (int i = 0; i < this.vertices.size(); i++) {
             for (int j = 0; j < this.vertices.size(); j++) {
-                if (!existeAresta(this.vertices.get(i).getID(), this.vertices.get(j).getID())) {
+                if (!existeAresta(this.vertices.get(i).getID(), this.vertices.get(j).getID()) && this.vertices.get(i).getID()!=this.vertices.get(j).getID()) {
                     return false;
                 }
             }
