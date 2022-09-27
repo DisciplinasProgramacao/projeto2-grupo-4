@@ -207,6 +207,7 @@ public abstract class Grafo {
      */
     private boolean ehPar(int nr){
         return nr%2 == 0;
+        
     }
 
     
