@@ -8,18 +8,34 @@ import vertices.Vertice;
 
 public class GrafoCompleto extends Grafo {
 
-    GrafoCompleto(){
+    public GrafoCompleto(){
         super();
     }
 
-    public void GerarGrafoCompleto(){
-        for(int i = 0; i < this.vertices.size(); i++){
-            for (int j = 0; j < this.vertices.size(); j++) {
-                if(!existeAresta(this.vertices.get(i).getID(), this.vertices.get(j).getID())){
-                        this.vertices.get(i).addAresta(this.vertices.get(j).getID());
-                }
-            }
+    /**
+     * @return -> retorna verdadeiro caso o grafo completo tenha sido criado com sucesso
+     */
+    public Grafo GerarGrafoCompleto(List<Vertice> vertices_completo){
+
+        GrafoCompleto grafo_completo = new GrafoCompleto();
+
+        for(Vertice vertice : vertices_completo){
+
+            grafo_completo.vertices.add(vertice);
+
         }
+
+        for(Vertice verticeA : vertices_completo){
+
+            for(Vertice verticeB : vertices_completo){
+
+                verticeA.addAresta(verticeB.getID());
+
+            }
+
+        }
+
+        return grafo_completo;
     }
 
     @Override
@@ -32,17 +48,9 @@ public class GrafoCompleto extends Grafo {
 
     @Override
     public boolean existeAresta(int verticeA, int verticeB) {
-        if (completo() && verticeA != verticeB) {
+        if (verticeA != verticeB) {
             return true;
-        } else {
-            for (int i = 0; i < this.vertices.size(); i++) {
-                if (this.vertices.get(i).getID() == verticeA) {
-                    if (this.vertices.get(i).existeAresta(verticeB) != null) {
-                        return true;
-                    }
-
-                }
-            }
+        }else{
             return false;
         }
     }
