@@ -10,6 +10,9 @@ public class Vertice {
     private int id = Util.retornaID();
     private List<Aresta> arestas;
     private boolean visitado;
+    private int tempoDescobrimento;
+    private int tempoTermino;
+    private int pai;
 
     /* Construtor */
 
@@ -124,6 +127,34 @@ public class Vertice {
 
     public void setID(int id){
         this.id = id;
+    }
+
+    public List<Aresta> getArestas(){
+        return this.arestas;
+    }
+
+    public int getTempoDescobrimento(){
+        return this.tempoDescobrimento;
+    }
+
+    public void setTempoDescobrimento(int tempo){
+        this.tempoDescobrimento = tempo;
+    }
+
+    public int getTempoTermino(){
+        return this.tempoTermino;
+    }
+
+    public void setTempoTermino(int tempo){
+        this.tempoTermino = tempo;
+    }
+
+    public int getPai(){
+        return this.pai;
+    }
+
+    public void setPai(int id){
+        this.pai = id;
     }
 
     /* Util */
