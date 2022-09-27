@@ -125,6 +125,63 @@ public abstract class Grafo {
         return nrVertice + nrAresta;
     }
 
+    /** 
+     * Método para retornar uma lista na ordem do caminho euleriano
+     * @return -> Um List<Vertices>, caso o grafo nao seja euleriano, o método devolde null
+     */
+    public List<Vertice> caminhoEuleriano(){
+        int index;
+        int destino;
+        int numeroArestas = this.tamanho() - this.ordem();
+
+        List<Vertice> verticesAuxiliares = new ArrayList<Vertice>(this.vertices);
+        List<Vertice> caminhoEuleriano = new ArrayList<Vertice>();
+        
+        Vertice verticeAtual = verticesAuxiliares.get(0);
+        Aresta arestaAtual;
+
+        if(this.euleriano()){
+            while(numeroArestas != 0){
+                caminhoEuleriano.add(verticeAtual);
+
+                if(verticeAtual.getGrau() > 1){
+                    index = 0;
+                    arestaAtual = verticeAtual.getArestas().get(index);
+                    while(this.ehPonte(verticesAuxiliares, verticeAtual.getID(), arestaAtual)){
+                        index++;
+                        arestaAtual = verticeAtual.getArestas().get(index);
+                    }
+                    
+                }else{
+                    arestaAtual = verticeAtual.getArestas().get(0);
+                }
+                destino = arestaAtual.getDestino();
+                verticeAtual.removeAresta(arestaAtual.getDestino(),false);
+                verticeAtual = verticesAuxiliares.get(destino);
+            }
+        }else{
+            return null;
+        }
+
+        
+        return caminhoEuleriano;
+    }
+
+    /**
+     * @param vertices lista dos vértices do grafo
+     * @param idVertice Id do vertice
+     * @param aresta aresta a ser testa
+     * @return true se aresta nao for ponte e false se aresta for ponte 
+     */
+    private boolean ehPonte(List<Vertice> vertices, int idVertice, Aresta aresta){
+
+        Vertice verticeAuxiliar =  vertices.get(idVertice);
+        verticeAuxiliar.getArestas().remove(aresta);
+       
+        
+        return  this.ehConexo(vertices); 
+    }
+
     /**
      * O grafo é euleriano sé possível realizar um ciclo passando por todas as arestas
      * @return true se o grafo for euleriano
@@ -133,7 +190,7 @@ public abstract class Grafo {
         //TEM q SER UM GRAFO CONEXO
         // TODOS OS GRAUS DE VERTICE PAR != 0
 
-        if(ehConexo()){
+        if(ehConexo(this.vertices)){
             for(int i = 0; i < this.ordem();i++){
                 if(!this.ehPar(this.vertices.get(i).getGrau()))
                     return false;
@@ -147,8 +204,8 @@ public abstract class Grafo {
     /**
      * @return true -> retorna true se o grafo for conexo
      */
-    private boolean ehConexo(){
-        
+    private boolean ehConexo(List<Vertice> vertices){
+        this.limparVisitasArestas(this.vertices);
         int passouPeloWhile = 0;
 
         for(int i = 0; i < this.ordem();i++){
@@ -165,9 +222,6 @@ public abstract class Grafo {
             }
             this.buscaProfundidade(this.verticeNaoDescorbeto());
         }
-
-         
-        
         
         return true;
     }
@@ -223,6 +277,22 @@ public abstract class Grafo {
 
         }
         return null;
+    }
+
+    /**
+     * Limpa as visitas de todos as arestas
+     * @param vertices - > Lista de vertices que terão as visitas das arestas apagadas
+     */
+    private void limparVisitasArestas(List<Vertice> vertices){
+        int numeroArestas;
+        Aresta aresta;
+        for( int i = 0; i < this.ordem();i++){
+            numeroArestas = this.vertices.get(i).getArestas().size();
+            for(int j = 0; j < numeroArestas ;j++){
+               aresta =  this.vertices.get(i).getArestas().get(j);
+               aresta.limparVisita();
+            }
+        }
     }
 
     
