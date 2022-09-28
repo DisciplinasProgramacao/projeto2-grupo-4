@@ -157,6 +157,7 @@ public abstract class Grafo {
                 }
                 destino = arestaAtual.getDestino();
                 verticeAtual.removeAresta(arestaAtual.getDestino(),false);
+                numeroArestas--;
                 verticeAtual = verticesAuxiliares.get(destino);
             }
         }else{
