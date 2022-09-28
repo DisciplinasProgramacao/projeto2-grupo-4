@@ -2,7 +2,6 @@ package grafos;
 
 import java.util.List;
 
-import arestas.Aresta;
 import uteis.Util;
 import vertices.Vertice;
 

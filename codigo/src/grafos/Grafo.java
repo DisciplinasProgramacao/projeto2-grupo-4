@@ -1,9 +1,7 @@
 package grafos;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import arestas.Aresta;
 import buscas.BuscaEmProfunidade;
@@ -326,17 +324,101 @@ public abstract class Grafo {
         return true;
     }
 
-    public void BuscaProfunidade(){
+    public void BuscaProfunidade(int vertice_inicio){
+
+        this.tempo = 0;
+
+        boolean achou_aresta = false;
+
+        BuscaEmProfunidade busca = new BuscaEmProfunidade(); 
+
+        busca.registroGeral(vertice_inicio, tempo, -1, -1);
+
+        this.tempo++;
+
+        Vertice vertice_anterior = null;
+        Vertice vertice_atual = this.vertices.get(vertice_inicio);
+        Vertice vertice_mais_profundo = this.vertices.get(this.vertices.size()-1);
+        Vertice vertice_mais_profundo_do_vertice = null;
+        int quantidade_arestas_passadas = 0;
+
+        while(!vertice_mais_profundo.getVisitado()){
+
+            for(Aresta aresta : vertice_atual.getArestas()){
+
+                if(!aresta.getVisitada() && !achou_aresta){
+
+                    aresta.visitarAresta();
+                    achou_aresta = true;
+
+                    vertice_anterior = vertice_atual;
+                    vertice_atual = this.vertices.get(aresta.getDestino());
+                    
+                    for(Aresta aresta2 : vertice_atual.getArestas()){
+                        if(aresta2.getDestino() == vertice_anterior.getID()){
+                            aresta2.visitarAresta();
+                        }
+                    }
+
+                    if(!busca.getIdVertice().contains(vertice_atual.getID())){
+                        busca.registroGeral(vertice_atual.getID(), 
+                        this.tempo, -1, vertice_anterior.getID());
+                    }
+
+                    break;
+                }
+
+                vertice_mais_profundo_do_vertice = this.vertices.get(aresta.getDestino());
+            }
+
+            if(achou_aresta){
+
+                for(Aresta aresta : vertice_anterior.getArestas()){
+
+                    if(aresta.getVisitada()){
+                        quantidade_arestas_passadas++;
+                    }
+                }
+
+                if(quantidade_arestas_passadas == vertice_anterior.getGrau()){
+                    boolean visita = vertice_anterior.visitarVertice();
+                    
+                    if(visita){
+                        busca.alteraTempoVisitado(vertice_anterior.getID(), tempo);
+                    }
+                }
+            }else{
+
+                boolean visita = vertice_atual.visitarVertice();  
+                
+                if(visita){
+                    busca.alteraTempoVisitado(vertice_atual.getID(), tempo);
+                }
+                
+                vertice_atual = vertice_mais_profundo_do_vertice;
+
+            }
+            
+            if(vertice_mais_profundo.getVisitado()){
+                
+                vertice_atual.visitarVertice();
+                busca.alteraTempoVisitado(vertice_atual.getID(), tempo);
+
+
+            }
+            
+            quantidade_arestas_passadas = 0;
+            achou_aresta = false;
+            this.tempo++;
 
 
 
-    }
+            
+        }
 
-    private void BuscaProfunidade(int vertice_inicio){
+        
 
-        BuscaEmProfunidade busca = new BuscaEmProfunidade();
-
-        busca.registroGeral(vertice_inicio, 0, -1, -1);
+        busca.imprimiBusca();
 
     }
 
