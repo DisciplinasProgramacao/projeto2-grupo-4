@@ -1,9 +1,12 @@
 package grafos;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import arestas.Aresta;
+import buscas.BuscaEmProfunidade;
 import uteis.Util;
 import vertices.Vertice;
 
@@ -103,7 +106,7 @@ public abstract class Grafo {
         return false;
 
     }
-
+    
     /**
      * @return -> retorna o número de vértices
      */
@@ -321,5 +324,18 @@ public abstract class Grafo {
         return true;
     }
 
+    public void BuscaProfunidade(){
+
+
+
+    }
+
+    private void BuscaProfunidade(int vertice_inicio){
+
+        BuscaEmProfunidade busca = new BuscaEmProfunidade();
+
+        busca.registroGeral(vertice_inicio, 0, -1, -1);
+
+    }
 }
 
