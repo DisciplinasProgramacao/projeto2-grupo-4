@@ -190,15 +190,28 @@ public abstract class Grafo {
         //TEM q SER UM GRAFO CONEXO
         // TODOS OS GRAUS DE VERTICE PAR != 0
 
-        if(ehConexo(this.vertices)){
-            for(int i = 0; i < this.ordem();i++){
-                if(!this.ehPar(this.vertices.get(i).getGrau()))
-                    return false;
-            }
-        }else
+        if(this.grauImpares()){
             return false;
+        }else{
+            
+            if(!ehConexo(this.vertices)){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
 
-        return true;
+    private boolean grauImpares(){
+        boolean existeImpar = false;
+
+        for(int i = 0; i < this.ordem();i++){
+            if(this.vertices.get(i).getGrau()%2 != 0){
+              existeImpar = true;
+            }
+        }
+
+        return existeImpar;
     }
 
     /**
@@ -206,24 +219,25 @@ public abstract class Grafo {
      */
     private boolean ehConexo(List<Vertice> vertices){
         this.limparVisitasArestas(this.vertices);
-        int passouPeloWhile = 0;
+        this.tempo = 0; 
 
         for(int i = 0; i < this.ordem();i++){
-            this.tempo = 0; 
+            
             vertices.get(i).setTempoDescobrimento(0);
             vertices.get(i).setTempoTermino(0);
-            vertices.get(i).setPai(0);
+            vertices.get(i).setPai(-1);
         }
 
-        while(this.verticeNaoDescorbeto() != null){
-            passouPeloWhile++;
-            if(passouPeloWhile > 1){
-                return false;
-            }
-            this.buscaProfundidade(this.verticeNaoDescorbeto());
+        this.buscaProfundidade(this.vertices.get(0));
+        
+        if(this.verticeNaoDescorbeto() != null){
+            return false;
+        }else{
+            return true;
         }
         
-        return true;
+        
+        
     }
 
     /**
@@ -231,39 +245,32 @@ public abstract class Grafo {
      * @param v vertice raiz
      */
     private void buscaProfundidade(Vertice v) {
+
         int idVertice;
-        this.tempo += 1;
+        this.tempo = this.tempo + 1;
         Vertice  verticeAuxiliar;
+
         v.setTempoDescobrimento(tempo);
-        for(int i =0; i < v.getArestas().size() ;i++){
+
+        for(int i =0; i < v.getGrau() ;i++){
+
             idVertice = v.getArestas().get(i).getDestino();
             verticeAuxiliar = this.vertices.get(idVertice);
+
             if(verticeAuxiliar.getTempoDescobrimento() == 0){
 
                 v.getArestas().get(i).visitarAresta();
                 verticeAuxiliar.setPai(v.getID());
                 buscaProfundidade(verticeAuxiliar);
 
-            }else if(verticeAuxiliar.getTempoTermino() ==0 && verticeAuxiliar.getPai() != v.getID()){
+            }else if(verticeAuxiliar.getTempoTermino() ==0 && verticeAuxiliar.getID() != v.getPai()){
                 v.getArestas().get(i).visitarAresta();// aresta de retorno
 
             }
-
-            this.tempo += 1;
-            v.setTempoTermino(tempo);
         }
+        this.tempo = this.tempo + 1;
+        v.setTempoTermino(tempo);
     }
-
-    /**
-     * 
-     * @param nr -> número que será avaliado
-     * @return -> retorna true se for par e false se for impar
-     */
-    private boolean ehPar(int nr){
-        return nr%2 == 0;
-        
-    }
-
     
     /**
      * 

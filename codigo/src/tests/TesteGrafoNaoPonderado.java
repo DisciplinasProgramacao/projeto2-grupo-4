@@ -11,6 +11,7 @@ public class TesteGrafoNaoPonderado{
 
     private static final String path = "C:\\Users\\Pablo Magalhães\\Documents\\GitHub\\projeto2-grupo-4\\codigo\\resources\\grafo1.txt";
 
+
     @Test
     public void testCarregamento(){
 
@@ -81,6 +82,14 @@ public class TesteGrafoNaoPonderado{
     private GrafoNaoPonderado retornaGrafo(){
         return new GrafoNaoPonderado();
     }
+
+    @Test public void grafoEhEuleriano(){
+        GrafoNaoPonderado grafo = retornaGrafo();
+        grafo.carregarGrafo(path);
+
+        assertEquals(true,grafo.euleriano());
+    }
+
 
 
 }
