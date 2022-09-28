@@ -110,7 +110,7 @@ public abstract class Grafo {
         return false;
 
     }
-    
+
     /**
      * @return -> retorna o número de vértices
      */
@@ -164,7 +164,6 @@ public abstract class Grafo {
                 }
                 destino = arestaAtual.getDestino();
                 verticeAtual.removeAresta(arestaAtual.getDestino(),false);
-                numeroArestas--;
                 verticeAtual = verticesAuxiliares.get(destino);
             }
         }else{
@@ -336,6 +335,36 @@ public abstract class Grafo {
 
         busca.registroGeral(vertice_inicio, 0, -1, -1);
 
+    }
+
+    public List<Vertice> caminhar(Vertice a, Vertice b) {
+        int idVertice;
+        this.tempo = this.tempo + 1;
+        Vertice  verticeAuxiliar;
+        List<Vertice> caminho = new ArrayList<Vertice>();
+
+        a.setTempoDescobrimento(tempo);
+        caminho.add(a);
+
+        for(int i =0; i < a.getGrau() ;i++){
+            verticeAuxiliar = a;
+
+            if(verticeAuxiliar.getTempoDescobrimento() == 0){
+
+                a.getArestas().get(i).visitarAresta();
+                verticeAuxiliar.setPai(a.getID());
+                caminho.add(verticeAuxiliar);
+                caminhar(verticeAuxiliar, b);
+
+            }else if(verticeAuxiliar.getTempoTermino() ==0 && verticeAuxiliar.getID() != b.getID()){
+                a.getArestas().get(i).visitarAresta();// aresta de retorno
+            }
+        }
+        this.tempo = this.tempo + 1;
+        a.setTempoTermino(tempo);
+
+        caminho.add(b);
+        return caminho;
     }
 }
 
