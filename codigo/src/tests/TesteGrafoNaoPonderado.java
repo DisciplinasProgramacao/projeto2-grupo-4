@@ -11,6 +11,7 @@ public class TesteGrafoNaoPonderado{
 
     private static final String path = "C:\\Users\\Pablo Magalhães\\Documents\\GitHub\\projeto2-grupo-4\\codigo\\resources\\grafo1.txt";
 
+
     @Test
     public void testCarregamento(){
 
@@ -58,9 +59,37 @@ public class TesteGrafoNaoPonderado{
 
     }
 
+    @Test
+    public void testaOrdemDoGrafo(){
+
+        GrafoNaoPonderado grafo = retornaGrafo();
+
+        grafo.carregarGrafo(path);
+
+        assertEquals(5,grafo.ordem());
+    }
+
+    @Test
+    public void testaTamanhoDoGrafo(){
+
+        GrafoNaoPonderado grafo = retornaGrafo();
+
+        grafo.carregarGrafo(path);
+
+        assertEquals(15,grafo.ordem());
+    }
+
     private GrafoNaoPonderado retornaGrafo(){
         return new GrafoNaoPonderado();
     }
+
+    @Test public void grafoEhEuleriano(){
+        GrafoNaoPonderado grafo = retornaGrafo();
+        grafo.carregarGrafo(path);
+
+        assertEquals(true,grafo.euleriano());
+    }
+
 
 
 }

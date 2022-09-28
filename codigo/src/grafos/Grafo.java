@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import arestas.Aresta;
 import buscas.BuscaEmProfunidade;
 import uteis.Util;
 import vertices.Vertice;
@@ -14,6 +15,8 @@ public abstract class Grafo {
     public final String nome = Util.getNomeGrafo();
 
     protected List<Vertice> vertices;
+
+    private int tempo; 
 
     /* Construtores */
 
@@ -43,7 +46,7 @@ public abstract class Grafo {
     /* Métodos */
 
     /**
-     * Esta função só pussi o proósito de imprimir o grafo como uma função auxliar de teste
+     * Esta função só pussi o propósito de imprimir o grafo como uma função auxliar de teste
      */
     public void imprimiGrafoNaoPonderado(){
 
@@ -102,6 +105,223 @@ public abstract class Grafo {
 
         return false;
 
+    }
+    
+    /**
+     * @return -> retorna o número de vértices
+     */
+    public int ordem(){
+        return this.vertices.size(); 
+    }
+
+    /**
+     * 
+     * @return -> retorna a soma do total de vétices com o total de arestass
+     */
+    public int tamanho(){
+        int nrVertice = this.ordem();
+        int nrAresta = 0;
+
+        for(int i =0; i < nrVertice; i++){
+            nrAresta += this.vertices.get(i).getGrau();
+        }
+        return nrVertice + nrAresta;
+    }
+
+    /** 
+     * Método para retornar uma lista na ordem do caminho euleriano
+     * @return -> Um List<Vertices>, caso o grafo nao seja euleriano, o método devolde null
+     */
+    public List<Vertice> caminhoEuleriano(){
+        int index;
+        int destino;
+        int numeroArestas = this.tamanho() - this.ordem();
+
+        List<Vertice> verticesAuxiliares = new ArrayList<Vertice>(this.vertices);
+        List<Vertice> caminhoEuleriano = new ArrayList<Vertice>();
+        
+        Vertice verticeAtual = verticesAuxiliares.get(0);
+        Aresta arestaAtual;
+
+        if(this.euleriano()){
+            while(numeroArestas != 0){
+                caminhoEuleriano.add(verticeAtual);
+
+                if(verticeAtual.getGrau() > 1){
+                    index = 0;
+                    arestaAtual = verticeAtual.getArestas().get(index);
+                    while(this.ehPonte(verticesAuxiliares, verticeAtual.getID(), arestaAtual)){
+                        index++;
+                        arestaAtual = verticeAtual.getArestas().get(index);
+                    }
+                    
+                }else{
+                    arestaAtual = verticeAtual.getArestas().get(0);
+                }
+                destino = arestaAtual.getDestino();
+                verticeAtual.removeAresta(arestaAtual.getDestino(),false);
+                numeroArestas--;
+                verticeAtual = verticesAuxiliares.get(destino);
+            }
+        }else{
+            return null;
+        }
+
+        
+        return caminhoEuleriano;
+    }
+
+    /**
+     * @param vertices lista dos vértices do grafo
+     * @param idVertice Id do vertice
+     * @param aresta aresta a ser testa
+     * @return true se aresta nao for ponte e false se aresta for ponte 
+     */
+    private boolean ehPonte(List<Vertice> vertices, int idVertice, Aresta aresta){
+
+        Vertice verticeAuxiliar =  vertices.get(idVertice);
+        verticeAuxiliar.getArestas().remove(aresta);
+       
+        
+        return  this.ehConexo(vertices); 
+    }
+
+    /**
+     * O grafo é euleriano sé possível realizar um ciclo passando por todas as arestas
+     * @return true se o grafo for euleriano
+     */
+    public boolean euleriano(){
+        //TEM q SER UM GRAFO CONEXO
+        // TODOS OS GRAUS DE VERTICE PAR != 0
+
+        if(this.grauImpares()){
+            return false;
+        }else{
+            
+            if(!ehConexo(this.vertices)){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
+
+    private boolean grauImpares(){
+        boolean existeImpar = false;
+
+        for(int i = 0; i < this.ordem();i++){
+            if(this.vertices.get(i).getGrau()%2 != 0){
+              existeImpar = true;
+            }
+        }
+
+        return existeImpar;
+    }
+
+    /**
+     * @return true -> retorna true se o grafo for conexo
+     */
+    private boolean ehConexo(List<Vertice> vertices){
+        this.limparVisitasArestas(this.vertices);
+        this.tempo = 0; 
+
+        for(int i = 0; i < this.ordem();i++){
+            
+            vertices.get(i).setTempoDescobrimento(0);
+            vertices.get(i).setTempoTermino(0);
+            vertices.get(i).setPai(-1);
+        }
+
+        this.buscaProfundidade(this.vertices.get(0));
+        
+        if(this.verticeNaoDescorbeto() != null){
+            return false;
+        }else{
+            return true;
+        }
+        
+        
+        
+    }
+
+    /**
+     * Realiza a busca de profundudidade do grafo a partir de um vértice raiz
+     * @param v vertice raiz
+     */
+    private void buscaProfundidade(Vertice v) {
+
+        int idVertice;
+        this.tempo = this.tempo + 1;
+        Vertice  verticeAuxiliar;
+
+        v.setTempoDescobrimento(tempo);
+
+        for(int i =0; i < v.getGrau() ;i++){
+
+            idVertice = v.getArestas().get(i).getDestino();
+            verticeAuxiliar = this.vertices.get(idVertice);
+
+            if(verticeAuxiliar.getTempoDescobrimento() == 0){
+
+                v.getArestas().get(i).visitarAresta();
+                verticeAuxiliar.setPai(v.getID());
+                buscaProfundidade(verticeAuxiliar);
+
+            }else if(verticeAuxiliar.getTempoTermino() ==0 && verticeAuxiliar.getID() != v.getPai()){
+                v.getArestas().get(i).visitarAresta();// aresta de retorno
+
+            }
+        }
+        this.tempo = this.tempo + 1;
+        v.setTempoTermino(tempo);
+    }
+    
+    /**
+     * 
+     * @return retorna true caso algum valor do vetor for igual a 0 -> null
+     */
+    private Vertice verticeNaoDescorbeto(){
+        for(int i =0 ; i <this.ordem() ;i++){
+            if(this.vertices.get(i).getTempoDescobrimento() == 0){
+                return this.vertices.get(i);
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * Limpa as visitas de todos as arestas
+     * @param vertices - > Lista de vertices que terão as visitas das arestas apagadas
+     */
+    private void limparVisitasArestas(List<Vertice> vertices){
+        int numeroArestas;
+        Aresta aresta;
+        for( int i = 0; i < this.ordem();i++){
+            numeroArestas = this.vertices.get(i).getArestas().size();
+            for(int j = 0; j < numeroArestas ;j++){
+               aresta =  this.vertices.get(i).getArestas().get(j);
+               aresta.limparVisita();
+            }
+        }
+    }
+
+    
+
+    /**
+     *
+     * @return -> retorna verdadeiro se todos os vértices do grafo forem adjacentes (grafo completo)
+     * e falso caso não sejam
+     */
+    public boolean completo() {
+        for (int i = 0; i < this.vertices.size(); i++) {
+            for (int j = 0; j < this.vertices.size(); j++) {
+                if (!existeAresta(this.vertices.get(i).getID(), this.vertices.get(j).getID()) && this.vertices.get(i).getID()!=this.vertices.get(j).getID()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void BuscaProfunidade(){
