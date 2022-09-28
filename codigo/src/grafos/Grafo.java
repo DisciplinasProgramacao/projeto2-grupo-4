@@ -34,6 +34,10 @@ public abstract class Grafo {
         this.vertices = vertices;
     }
 
+    public List<Vertice> getVertices(){
+        return this.vertices;
+    }
+
     /* Métodos abstratos */
 
 
@@ -150,7 +154,7 @@ public abstract class Grafo {
                 if(verticeAtual.getGrau() > 1){
                     index = 0;
                     arestaAtual = verticeAtual.getArestas().get(index);
-                    while(this.ehPonte(verticesAuxiliares, verticeAtual.getID(), arestaAtual)){
+                    while(this.ehPonte(arestaAtual)){
                         index++;
                         arestaAtual = verticeAtual.getArestas().get(index);
                     }
@@ -177,13 +181,14 @@ public abstract class Grafo {
      * @param aresta aresta a ser testa
      * @return true se aresta nao for ponte e false se aresta for ponte 
      */
-    private boolean ehPonte(List<Vertice> vertices, int idVertice, Aresta aresta){
-
+    private boolean ehPonte(Aresta aresta){
+        int idVertice = aresta.getDestino();
         Vertice verticeAuxiliar =  vertices.get(idVertice);
-        verticeAuxiliar.getArestas().remove(aresta);
-       
-        
-        return  this.ehConexo(vertices); 
+        if(verticeAuxiliar.getGrau() > 1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     /**
@@ -197,12 +202,7 @@ public abstract class Grafo {
         if(this.grauImpares()){
             return false;
         }else{
-            
-            if(!ehConexo(this.vertices)){
-                return false;
-            }else{
-                return true;
-            }
+            return true;
         }
     }
 
@@ -221,7 +221,7 @@ public abstract class Grafo {
     /**
      * @return true -> retorna true se o grafo for conexo
      */
-    private boolean ehConexo(List<Vertice> vertices){
+    public boolean ehConexo(List<Vertice> vertices){
         this.limparVisitasArestas(this.vertices);
         this.tempo = 0; 
 
@@ -232,7 +232,7 @@ public abstract class Grafo {
             vertices.get(i).setPai(-1);
         }
 
-        this.buscaProfundidade(this.vertices.get(0));
+        this.passeio(this.vertices.get(0));
         
         if(this.verticeNaoDescorbeto() != null){
             return false;
@@ -248,7 +248,7 @@ public abstract class Grafo {
      * Realiza a busca de profundudidade do grafo a partir de um vértice raiz
      * @param v vertice raiz
      */
-    private void buscaProfundidade(Vertice v) {
+    private void passeio(Vertice v) {
 
         int idVertice;
         this.tempo = this.tempo + 1;
@@ -265,7 +265,7 @@ public abstract class Grafo {
 
                 v.getArestas().get(i).visitarAresta();
                 verticeAuxiliar.setPai(v.getID());
-                buscaProfundidade(verticeAuxiliar);
+                passeio(verticeAuxiliar);
 
             }else if(verticeAuxiliar.getTempoTermino() ==0 && verticeAuxiliar.getID() != v.getPai()){
                 v.getArestas().get(i).visitarAresta();// aresta de retorno

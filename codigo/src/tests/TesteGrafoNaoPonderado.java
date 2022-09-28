@@ -89,7 +89,4 @@ public class TesteGrafoNaoPonderado{
 
         assertEquals(true,grafo.euleriano());
     }
-
-
-
 }
