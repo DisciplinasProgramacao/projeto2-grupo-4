@@ -141,7 +141,8 @@ public abstract class Grafo {
         int destino;
         int numeroArestas = this.tamanho() - this.ordem();
 
-        List<Vertice> verticesAuxiliares = new ArrayList<Vertice>(this.vertices);
+        List<Vertice> verticesAuxiliares = new ArrayList<Vertice>(25);
+        verticesAuxiliares.addAll(this.vertices);
         List<Vertice> caminhoEuleriano = new ArrayList<Vertice>();
         
         Vertice verticeAtual = verticesAuxiliares.get(0);
@@ -154,7 +155,7 @@ public abstract class Grafo {
                 if(verticeAtual.getGrau() > 1){
                     index = 0;
                     arestaAtual = verticeAtual.getArestas().get(index);
-                    while(this.ehPonte(arestaAtual)){
+                    while(this.ehPonte(verticesAuxiliares,verticeAtual,arestaAtual)){
                         index++;
                         arestaAtual = verticeAtual.getArestas().get(index);
                     }
@@ -180,14 +181,13 @@ public abstract class Grafo {
      * @param aresta aresta a ser testa
      * @return true se aresta nao for ponte e false se aresta for ponte 
      */
-    private boolean ehPonte(Aresta aresta){
-        int idVertice = aresta.getDestino();
-        Vertice verticeAuxiliar =  vertices.get(idVertice);
-        if(verticeAuxiliar.getGrau() > 1){
-            return false;
-        }else{
-            return true;
-        }
+    private boolean ehPonte(List<Vertice> vertices,Vertice vertice,Aresta aresta){
+
+        List<Vertice> listaAuxiliar = new ArrayList<Vertice>(vertices);
+        Vertice verticeAuxiliar = listaAuxiliar.get(vertice.getID());
+        verticeAuxiliar.removeAresta(aresta.getDestino(), false);
+
+        return this.ehConexo(listaAuxiliar);
     }
 
     /**
@@ -195,13 +195,16 @@ public abstract class Grafo {
      * @return true se o grafo for euleriano
      */
     public boolean euleriano(){
-        //TEM q SER UM GRAFO CONEXO
+        //TEM q SER UM GRAFO CONEXO -> Não consegui implementar e testar
         // TODOS OS GRAUS DE VERTICE PAR != 0
 
         if(this.grauImpares()){
             return false;
         }else{
-            return true;
+            if(!this.ehConexo(this.vertices))
+                return false;
+            else
+                return true;
         }
     }
 
@@ -220,7 +223,7 @@ public abstract class Grafo {
     /**
      * @return true -> retorna true se o grafo for conexo
      */
-    public boolean ehConexo(List<Vertice> vertices){
+    private boolean ehConexo(List<Vertice> vertices){
         this.limparVisitasArestas(this.vertices);
         this.tempo = 0; 
 
