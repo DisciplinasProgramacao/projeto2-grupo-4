@@ -15,7 +15,7 @@ public class GrafoCompleto extends Grafo {
     /**
      * @return -> retorna verdadeiro caso o grafo completo tenha sido criado com sucesso
      */
-    public Grafo GerarGrafoCompleto(List<Vertice> vertices_completo){
+    public Grafo gerarGrafoCompleto(List<Vertice> vertices_completo){
 
         GrafoCompleto grafo_completo = new GrafoCompleto();
 
@@ -40,7 +40,7 @@ public class GrafoCompleto extends Grafo {
 
     @Override
     public boolean existeVertice(int id_vertice){
-            if(existeAresta(this.vertices.get(1).getID(), id_vertice)){
+            if(existeAresta(this.vertices.get(0).getID(), id_vertice)){
                 return true;
             }
         return false;
