@@ -9,7 +9,7 @@ import uteis.Util;
 
 public class TesteGrafoNaoPonderado{
 
-    private static final String path = "C:\\Users\\Pablo Magalhães\\Documents\\GitHub\\projeto2-grupo-4\\codigo\\resources\\grafo1.txt";
+    private static final String path = "C:\\Users\\Pablo Magalhães\\Documents\\GitHub\\projeto2-grupo-4\\codigo\\resources\\grafo3.txt";
 
 
     @Test
@@ -89,4 +89,19 @@ public class TesteGrafoNaoPonderado{
 
         assertEquals(true,grafo.euleriano());
     }
+
+    @Test
+    public void BuscaEmProfunidade(){
+
+        GrafoNaoPonderado grafo = retornaGrafo();
+
+        grafo.carregarGrafo(path);
+
+        grafo.BuscaProfunidade(0);
+
+        
+
+
+    }
+
 }

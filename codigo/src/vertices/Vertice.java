@@ -90,12 +90,14 @@ public class Vertice {
 
     }
 
-    public void visitarVertice(){
+    public boolean visitarVertice(){
 
         if(!this.visitado){
             this.visitado = true;
+            return true;
         }else{
             Util.ImprimiErro("Vértice já visitado");
+            return false;
         }
 
 
