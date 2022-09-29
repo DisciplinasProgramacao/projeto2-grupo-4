@@ -139,8 +139,7 @@ public abstract class Grafo {
         int destino;
         int numeroArestas = this.tamanho() - this.ordem();
 
-        List<Vertice> verticesAuxiliares = new ArrayList<Vertice>(25);
-        verticesAuxiliares.addAll(this.vertices);
+        List<Vertice> verticesAuxiliares = new ArrayList<Vertice>(this.vertices);
         List<Vertice> caminhoEuleriano = new ArrayList<Vertice>();
         
         Vertice verticeAtual = verticesAuxiliares.get(0);
@@ -153,11 +152,10 @@ public abstract class Grafo {
                 if(verticeAtual.getGrau() > 1){
                     index = 0;
                     arestaAtual = verticeAtual.getArestas().get(index);
-                    while(this.ehPonte(verticesAuxiliares,verticeAtual,arestaAtual)){
+                    while(this.ehPonte(verticesAuxiliares,verticeAtual,arestaAtual) && verticeAtual.getArestas().size() > 1){
                         index++;
                         arestaAtual = verticeAtual.getArestas().get(index);
                     }
-                    
                 }else{
                     arestaAtual = verticeAtual.getArestas().get(0);
                 }
@@ -221,7 +219,7 @@ public abstract class Grafo {
     /**
      * @return true -> retorna true se o grafo for conexo
      */
-    private boolean ehConexo(List<Vertice> vertices){
+    public boolean ehConexo(List<Vertice> vertices){
         this.limparVisitasArestas(this.vertices);
         this.tempo = 0; 
 
@@ -245,7 +243,7 @@ public abstract class Grafo {
     }
 
     /**
-     * Realiza a busca de profundudidade do grafo a partir de um vértice raiz
+     * Tenta percorrer o grafo todo a partir de um vértice inicial
      * @param v vertice raiz
      */
     private void passeio(Vertice v) {
