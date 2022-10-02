@@ -39,12 +39,7 @@ public class TesteGrafoCompleto {
 
         grafo.gerarGrafoCompleto(teste);
 
-        assertEquals(true, grafo.existeAresta(a.getID(), b.getID()));
-        assertEquals(true, grafo.existeAresta(a.getID(), c.getID()));
-        assertEquals(true, grafo.existeAresta(a.getID(), d.getID()));
-        assertEquals(true, grafo.existeAresta(a.getID(), e.getID()));
-        assertEquals(true, grafo.existeAresta(a.getID(), f.getID()));
-
+        assertEquals(5, grafo.ordem(a));
     }
 
     @Test

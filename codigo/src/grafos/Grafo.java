@@ -421,8 +421,10 @@ public abstract class Grafo {
 
     }
 
+    /**
+     * @return -> retorna o caminho entre vertices
+     */
     public List<Vertice> caminhar(Vertice a, Vertice b) {
-        int idVertice;
         this.tempo = this.tempo + 1;
         Vertice  verticeAuxiliar;
         List<Vertice> caminho = new ArrayList<Vertice>();

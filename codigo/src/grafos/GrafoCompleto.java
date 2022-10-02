@@ -37,6 +37,14 @@ public class GrafoCompleto extends Grafo {
         return grafo_completo;
     }
 
+    /**
+     *
+     * @return -> retorna a ordem de um vertice
+     */
+    public int ordem(Vertice vertice){
+        return (vertice.getArestas().size()) -1;
+    }
+
     @Override
     public boolean existeVertice(int id_vertice){
             if(existeAresta(this.vertices.get(0).getID(), id_vertice)){
