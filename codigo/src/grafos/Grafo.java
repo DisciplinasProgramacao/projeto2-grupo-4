@@ -160,8 +160,9 @@ public abstract class Grafo {
                     arestaAtual = verticeAtual.getArestas().get(0);
                 }
                 destino = arestaAtual.getDestino();
-                verticeAtual.removeAresta(arestaAtual.getDestino(),false);
+                verticeAtual.removeAresta(arestaAtual);
                 verticeAtual = verticesAuxiliares.get(destino);
+                numeroArestas--;
             }
         }else{
             return null;

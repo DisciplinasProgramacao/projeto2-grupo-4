@@ -119,7 +119,13 @@ public class TesteGrafoNaoPonderado{
         assertEquals(false,grafo.euleriano());
     }
 
-    
+    @Test 
+    public void testaCaminhoEuleriano(){
+        GrafoNaoPonderado grafo = retornaGrafo();
+        grafo.carregarGrafo(pathArthur);
+        System.out.println(grafo.caminhoEuleriano().toString());
+        
+    }
 
     @Test
     public void BuscaEmProfunidade(){

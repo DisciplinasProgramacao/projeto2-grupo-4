@@ -185,6 +185,10 @@ public class Vertice {
 
     }
 
+    public void removeAresta(Aresta aresta){
+        this.arestas.remove(aresta);
+    }
+
     public void imprimiVertice(){
 
         if(!Util.IsListaArestasVazia(this.arestas)){
